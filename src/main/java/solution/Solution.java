@@ -45,6 +45,11 @@ public class Solution {
             Double price=0.0;
             int rows=0;
             while (rowIterator.hasNext()) {
+                if(rows==0)
+                {
+                    rows+=1;
+                    continue;
+                }
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
 
