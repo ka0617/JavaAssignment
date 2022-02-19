@@ -30,48 +30,12 @@ class FruitbyName implements Comparator<Fruit>
 
 
 public class Solution {
-    public static void read() throws IOException
-    {
-        InputStream ExcelFileToRead = new FileInputStream("/Users/kavanaa/Desktop/Solution/src/main/resources/input.xlsx");
-        XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
 
-        XSSFWorkbook test = new XSSFWorkbook();
-
-        XSSFSheet sheet = wb.getSheetAt(0);
-        XSSFRow row;
-        XSSFCell cell;
-
-        Iterator rows = sheet.rowIterator();
-
-        while (rows.hasNext())
-        {
-            row=(XSSFRow) rows.next();
-            Iterator cells = row.cellIterator();
-            while (cells.hasNext())
-            {
-                cell=(XSSFCell) cells.next();
-
-                if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING)
-                {
-                    System.out.print(cell.getStringCellValue()+" ");
-                }
-                else if(cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
-                {
-                    System.out.print(cell.getNumericCellValue()+" ");
-                }
-                else
-                {
-                    //U Can Handel Boolean, Formula, Errors
-                }
-            }
-            System.out.println();
-        }
-
-    }
     public static ArrayList<Fruit> readXLSXfile(String fileName)
     {
         ArrayList<Fruit> ar = new ArrayList<Fruit>();
         try {
+
             FileInputStream file = new FileInputStream(new File(fileName));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
@@ -83,11 +47,7 @@ public class Solution {
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
-                if(rows==0)
-                {
-                    rows+=1;
-                    continue;
-                }
+
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
                     switch (cell.getCellType()) {
@@ -99,10 +59,8 @@ public class Solution {
                             break;
                     }
                 }
-                System.out.println(name+" "+price);
-              //  ar.add(new Fruit(name, price));
+                ar.add(new Fruit(name, price));
             }
-            System.exit(0);
             file.close();
             Collections.sort(ar, new FruitbyName());
         }
